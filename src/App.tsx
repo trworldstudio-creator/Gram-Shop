@@ -10,6 +10,7 @@ import {
   MessageSquare,
   User,
   MapPin,
+  Smartphone,
 } from 'lucide-react';
 import {
   AnimalCategory,
@@ -30,6 +31,7 @@ import { OffersChatView, SaudaThread } from './components/OffersChatView';
 import { MyShedAccountView } from './components/MyShedAccountView';
 import { calculateHaversineDistance } from './data/locations';
 import { LocationModal, UserLocationState } from './components/LocationModal';
+import { MobileAppModal } from './components/MobileAppModal';
 
 export default function App() {
   const [lang, setLang] = useState<LanguageCode>('en');
@@ -51,6 +53,7 @@ export default function App() {
     radiusKm: 100,
   });
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
+  const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
 
   // Master-Detail Active Animal (defaults to first animal on desktop split view)
   const [inspectedAnimalId, setInspectedAnimalId] = useState<string | null>(
@@ -453,6 +456,20 @@ export default function App() {
                 <span>{t.tabAccount}</span>
               </span>
             </button>
+
+            <button
+              type="button"
+              onClick={() => setIsMobileModalOpen(true)}
+              className="w-full min-h-[42px] px-3.5 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-between transition-colors bg-[#FAF8F5] hover:bg-[#F2EFE9] border border-[#E7E2DA] text-[#1B5E3A] cursor-pointer mt-2"
+            >
+              <span className="inline-flex items-center gap-2.5">
+                <Smartphone className="w-4 h-4 text-[#C86D1F]" />
+                <span>Mobile &amp; APK</span>
+              </span>
+              <span className="text-[10px] font-bold bg-[#1B5E3A]/10 text-[#1B5E3A] px-1.5 py-0.5 rounded">
+                QR
+              </span>
+            </button>
           </nav>
         </div>
 
@@ -552,17 +569,30 @@ export default function App() {
               ))}
             </div>
 
-            {/* Desktop Location Button & Quick Sell CTA */}
+            {/* Desktop Location Button */}
             <button
               type="button"
               onClick={() => setIsLocationModalOpen(true)}
-              className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 bg-[#FAF8F5] hover:bg-[#F2EFE9] border border-[#E7E2DA] rounded-xl text-xs font-semibold text-[#181D1A] mr-2 transition-colors cursor-pointer"
+              className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 bg-[#FAF8F5] hover:bg-[#F2EFE9] border border-[#E7E2DA] rounded-xl text-xs font-semibold text-[#181D1A] transition-colors cursor-pointer"
               title="Click to set city or district"
             >
               <MapPin className="w-3.5 h-3.5 text-[#C86D1F]" />
-              <span className="truncate max-w-[130px]">{userLocation.label}</span>
+              <span className="truncate max-w-[120px]">{userLocation.label}</span>
               <span className="text-[10px] text-[#15803D] font-bold">
                 {userLocation.radiusKm ? `(${userLocation.radiusKm} km)` : '(All)'}
+              </span>
+            </button>
+
+            {/* Mobile / APK Modal Trigger Button */}
+            <button
+              type="button"
+              onClick={() => setIsMobileModalOpen(true)}
+              className="min-h-[38px] px-2.5 sm:px-3 py-1.5 bg-[#1B5E3A]/10 hover:bg-[#1B5E3A]/20 border border-[#1B5E3A]/30 rounded-xl text-xs font-semibold text-[#1B5E3A] inline-flex items-center gap-1.5 transition-colors cursor-pointer"
+              title="Scan QR code, install app, or download APK"
+            >
+              <Smartphone className="w-3.5 h-3.5 text-[#1B5E3A]" />
+              <span className="font-bold">
+                {lang === 'hi' ? 'ऐप / APK' : lang === 'gu' ? 'એપ / APK' : lang === 'mr' ? 'ॲप / APK' : 'App / APK'}
               </span>
             </button>
 
@@ -613,6 +643,7 @@ export default function App() {
               soldIds={soldIds}
               userLocationLabel={userLocation.label}
               onOpenLocationModal={() => setIsLocationModalOpen(true)}
+              onOpenMobileModal={() => setIsMobileModalOpen(true)}
               onToggleSold={handleToggleSold}
               onDeleteListing={handleDeleteListing}
               onGoToSell={() => setActiveTab('sell')}
@@ -1040,6 +1071,13 @@ export default function App() {
           );
           setTimeout(() => setPublishedToast(null), 3000);
         }}
+      />
+
+      {/* Mobile & APK Modal */}
+      <MobileAppModal
+        isOpen={isMobileModalOpen}
+        lang={lang}
+        onClose={() => setIsMobileModalOpen(false)}
       />
     </div>
   );

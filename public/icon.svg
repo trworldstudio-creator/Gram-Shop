@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" rx="128" fill="#1B5E3A"/>
+  <circle cx="256" cy="256" r="190" fill="#FAF8F5" opacity="0.12"/>
+  <!-- Stylized cow / bull horns and head -->
+  <path d="M140 180 C 110 130, 160 80, 200 130 C 215 150, 230 180, 256 180 C 282 180, 297 150, 312 130 C 352 80, 402 130, 372 180 C 360 200, 330 220, 320 250 C 305 295, 300 350, 256 350 C 212 350, 207 295, 192 250 C 182 220, 152 200, 140 180 Z" fill="#FAF8F5"/>
+  <!-- Muzzle ring & nostrils -->
+  <path d="M210 290 Q 256 275 302 290 Q 312 330 256 342 Q 200 330 210 290 Z" fill="#C86D1F"/>
+  <circle cx="236" cy="310" r="8" fill="#1B5E3A"/>
+  <circle cx="276" cy="310" r="8" fill="#1B5E3A"/>
+  <!-- Eyes -->
+  <circle cx="205" cy="225" r="9" fill="#1B5E3A"/>
+  <circle cx="307" cy="225" r="9" fill="#1B5E3A"/>
+</svg>

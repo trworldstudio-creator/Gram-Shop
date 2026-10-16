@@ -1,5 +1,5 @@
 import React from 'react';
-import { Check, Plus, Trash2, Globe, ShieldCheck } from 'lucide-react';
+import { Check, Plus, Trash2, Globe, ShieldCheck, Smartphone, MapPin } from 'lucide-react';
 import { AnimalListing, formatIndianPrice } from '../data/animals';
 import {
   LANGUAGES,
@@ -15,6 +15,7 @@ interface MyShedAccountViewProps {
   soldIds: string[];
   userLocationLabel?: string;
   onOpenLocationModal?: () => void;
+  onOpenMobileModal?: () => void;
   onToggleSold: (id: string) => void;
   onDeleteListing: (id: string) => void;
   onGoToSell: () => void;
@@ -27,6 +28,7 @@ export const MyShedAccountView: React.FC<MyShedAccountViewProps> = ({
   soldIds,
   userLocationLabel,
   onOpenLocationModal,
+  onOpenMobileModal,
   onToggleSold,
   onDeleteListing,
   onGoToSell,
@@ -69,6 +71,56 @@ export const MyShedAccountView: React.FC<MyShedAccountViewProps> = ({
           <span>{t.tabSell}</span>
         </button>
       </div>
+
+      {/* Mobile App & APK Download Card */}
+      {onOpenMobileModal && (
+        <div className="bg-[#1B5E3A]/8 border border-[#1B5E3A]/20 rounded-2xl p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3.5">
+            <div className="w-11 h-11 rounded-xl bg-[#1B5E3A] text-white flex items-center justify-center shrink-0 shadow-xs">
+              <Smartphone className="w-6 h-6" />
+            </div>
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-[#1B5E3A]/15 text-[#1B5E3A] text-[10px] font-bold mb-1 uppercase tracking-wider">
+                Android &amp; iOS Ready
+              </div>
+              <h2 className="text-base font-semibold text-[#181D1A]">
+                {lang === 'hi'
+                  ? 'मोबाइल ऐप और APK डाउनलोड'
+                  : lang === 'gu'
+                  ? 'મોબાઇલ એપ અને APK ડાઉનલોડ'
+                  : lang === 'mr'
+                  ? 'मोबाईल ॲप आणि APK डाउनलोड'
+                  : 'Mobile App & APK Download'}
+              </h2>
+              <p className="text-xs text-[#525854] mt-0.5">
+                {lang === 'hi'
+                  ? 'QR कोड स्कैन करके अपने फोन पर लगाएं या Android APK बनाएं'
+                  : lang === 'gu'
+                  ? 'QR કોડ સ્કેન કરી ફોન પર ચલાવો અથવા Android APK બનાવો'
+                  : lang === 'mr'
+                  ? 'QR कोड स्कॅन करून फोनवर चालवा किंवा Android APK बनवा'
+                  : 'Scan QR code to open on your phone or generate an Android APK file'}
+              </p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={onOpenMobileModal}
+            className="min-h-[42px] px-4 py-2.5 bg-[#1B5E3A] hover:bg-[#14472B] text-white text-xs sm:text-sm font-semibold rounded-xl inline-flex items-center gap-2 transition-colors cursor-pointer shrink-0 shadow-xs"
+          >
+            <Smartphone className="w-4 h-4" />
+            <span>
+              {lang === 'hi'
+                ? 'QR कोड व APK देखें'
+                : lang === 'gu'
+                ? 'QR કોડ અને APK જુઓ'
+                : lang === 'mr'
+                ? 'QR कोड व APK पहा'
+                : 'View QR & APK'}
+            </span>
+          </button>
+        </div>
+      )}
 
       {/* Regional Language Selector Section */}
       <div className="bg-white border border-[#E7E2DA] rounded-2xl p-5">
